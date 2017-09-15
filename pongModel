@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Basic Game</title>
+</head>
+<body>
+  <canvas id="Game" width=800 height = "600">
+
+  </canvas>
+
+
+
+  <script>
+    var canvas, canvasContext;  //  defined below
+
+    //  Initialize ball parameters
+    var ballX = 50;
+    var ballSpeedX = 5;
+    var ballY = 50;
+    var ballSpeedY = 5;
+
+    var paddle1Y = 250;  //  first paddle Y value
+    var paddle2Y = 250;  //  second paddle Y value
+
+    var paddle1Height = 100;   //  first paddle height
+    var paddle2Height = 100;
+
+    function calculateMousePos(evt){
+      var rect = canvas.getBoundingClientRect();
+      var root = document.documentElement;
+      var mouseX = evt.clientX - rect.left - root.scrollLeft;
+      var mouseY = evt.clientY - rect.top - root.scrollTop;
+
+      return{
+        x:mouseX, y:mouseY  //  objects
+      };
+    }
+
+    window.onload = function(){
+      canvas = document.getElementById('Game');  //  defined above
+      canvasContext = canvas.getContext('2d');
+
+      var FPS = 30;  //  caps FPS at 30 frames
+
+      //canvas.addEventListener('mousedown', handleMouseClick);
+      canvas.addEventListener('mousemove', function(evt){
+        var mousePos = calculateMousePos(evt);  //  will need to be returned
+      });
+
+      drawEverything()
+    }
+
+    function drawEverything(){
+      colorRect(0,00,canvas.width, canvas.height, 'black');
+      colorRect(10,10,10,10, 'white');  //  paddle
+      colorRect(780, 10, 10, 10, 'white');  //  paddle
+      colorCircle(200, 200, 10, 'white');  //  ball
+
+    }
+
+
+
+    function colorCircle(CenterX, CenterY, radius, drawColor){
+      canvasContext.fillStyle = drawColor;
+      canvasContext.beginPath();
+      canvasContext.arc(CenterX, CenterY, radius, 0, Math.PI*2,true);
+      canvasContext.fill();
+    }
+    function colorRect(LeftX, TopY, width, height, drawColor){
+      canvasContext.fillStyle = drawColor;
+      canvasContext.fillRect(LeftX, TopY, width, height);
+    }
+  </script>
+
+
+</body>
+</html>
